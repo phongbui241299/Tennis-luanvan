@@ -13,9 +13,13 @@ public class Ball : MonoBehaviour
    [SerializeField] Text playerscoreT;
    [SerializeField] Text botscoreT;
    [SerializeField] Text gameOverT;
+   [SerializeField] Text outText;
    [SerializeField] Text winT;
 
-    int scoreToWin = 40;
+    int scoreToWin = 500;
+    public float time = 5;
+    public GameObject ball;
+
 
     void Start()
     {
@@ -23,8 +27,10 @@ public class Ball : MonoBehaviour
         playerScore = 0;
         botScore = 0;
         gameOverT.enabled = false;
+        outText.enabled = false;
         winT.enabled = false;
         updateScores();
+
         
     }
 
@@ -58,11 +64,40 @@ public class Ball : MonoBehaviour
         }
     }
 
+    IEnumerator StartTime()
+    {
+        yield return new WaitForSeconds(time);
+        outText.enabled = false;
+
+      
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Out"))
         {
-            if(hitter == "player")
+            outText.enabled = true;
+          //  ball.SetActive(true);
+            //ball.GetComponent<Renderer>().enabled = false;
+            //ball.GetComponent<SphereCollider>().enabled = false;
+
+
+            // Ball.GetComponent<Renderer>().enabled = false;
+
+            StartCoroutine(StartTime());
+              //ball.GetComponent<SphereCollider>().enabled = true;
+            // cameraRotator.startRotate();
+
+
+            //            if (waitSec > 0)
+            //          {
+            //               waitSec -= Time.fixedDeltaTime;
+            //              waitSecInt = (int)waitSec;
+            //               outText.enabled = false;
+            //                gameObject.SetActive(true);
+            //           }
+
+            if (hitter == "player")
             {
                 botScore+=15;
                 if (botScore==45)
@@ -114,6 +149,8 @@ public class Ball : MonoBehaviour
             hitter = "bot";
         }
     }
+
+
 
     void updateScores()
     {
