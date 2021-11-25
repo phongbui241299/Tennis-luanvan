@@ -121,7 +121,7 @@ public class PlayerMoveByKinect : MonoBehaviour
 
             dir.y = 0; 
 
-            Debug.Log(dir.magnitude + "");
+           // Debug.Log(dir.magnitude + "");
             Vector3 dirNormal = dir.normalized;
 
             other.GetComponent<Rigidbody>().velocity = new Vector3(

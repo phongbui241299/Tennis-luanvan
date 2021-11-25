@@ -41,6 +41,13 @@ public class CameraRotator : MonoBehaviour
         isStartRotate = true;
         
     }
+    public void stopRotate()
+    {
+        //transform.position = Vector3.Lerp(this.transform.position, rotatePosition, 1f);
+        isStartRotate = false;
+        camera.transform.eulerAngles = cameraInitialRotation;
+        camera.transform.position = cameraInitialPos;
+    }
 
     public void setCameraAtPlayPosition()
     {
@@ -52,4 +59,6 @@ public class CameraRotator : MonoBehaviour
         ball.SetActive(true);
         player.enablePlayer();
     }
+
+
 }
