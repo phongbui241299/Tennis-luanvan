@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour
    [SerializeField] Text outText;
    [SerializeField] Text winT;
 
-    int scoreToWin = 100;
+    int scoreToWin = 40;
     public float time = 3;
     public GameObject ball;
    
@@ -47,6 +47,7 @@ public class Ball : MonoBehaviour
             if (hitter == "player")
             {
                 botScore+=15;
+                playBotSound();
                 if (botScore == 45)
                 {
                     botScore = 40;
@@ -55,6 +56,7 @@ public class Ball : MonoBehaviour
             else if (hitter == "bot")
             {
                 playerScore+=15;
+                playPlayerSound();
                 if (playerScore == 45)
                 {
                     playerScore = 40;
@@ -92,6 +94,7 @@ public class Ball : MonoBehaviour
             if (hitter == "player")
             {
                 botScore+=15;
+                playBotSound();
                 if (botScore==45)
                 {
                     botScore = 40;
@@ -100,6 +103,7 @@ public class Ball : MonoBehaviour
             else if(hitter == "bot")
             {
                 playerScore+=15;
+                playPlayerSound();
                 if (playerScore == 45)
                 {
                     playerScore = 40;
@@ -119,6 +123,7 @@ public class Ball : MonoBehaviour
             if(hitter == "player")
             {
                 botScore+=15;
+                playBotSound();
                 if (botScore == 45)
                 {
                     botScore = 40;
@@ -135,6 +140,7 @@ public class Ball : MonoBehaviour
             if(hitter == "bot")
             {
                 playerScore+=15;
+                playPlayerSound();
                 if (playerScore == 45)
                 {
                     playerScore = 40;
@@ -166,6 +172,7 @@ public class Ball : MonoBehaviour
             playerscoreT.gameObject.SetActive(false);
             botscoreT.gameObject.SetActive(false);
             outText.enabled = false;
+            playEndSound();
         }
         else if(playerScore > scoreToWin)
         {
@@ -175,7 +182,7 @@ public class Ball : MonoBehaviour
             playerscoreT.gameObject.SetActive(false);
             botscoreT.gameObject.SetActive(false);
             outText.enabled = false;
-
+            playWinSound();
         }
         else if (playerScore == scoreToWin && botScore == scoreToWin)
         {
@@ -184,7 +191,22 @@ public class Ball : MonoBehaviour
 
         }
     }
-
+    public void playEndSound()
+    {
+        FindObjectOfType<AudioManager>().Play("GameOver");
+    }
+    public void playWinSound()
+    {
+        FindObjectOfType<AudioManager>().Play("Win");
+    }
+    public void playPlayerSound ()
+    {
+        FindObjectOfType<AudioManager>().Play("PlayerWinBall");
+    }
+    public void playBotSound()
+    {
+        FindObjectOfType<AudioManager>().Play("BotWinBall");
+    }
     private void resetBall()
     {
         GetComponent<Rigidbody>().velocity = Vector3.zero;

@@ -408,8 +408,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c07ab22c3150aef4aa98f7cef3b9d823, type: 2}
-  - {fileID: 2100000, guid: c07ab22c3150aef4aa98f7cef3b9d823, type: 2}
+  - {fileID: 0}
+  - {fileID: 2100000, guid: 16e78725a6cc284469e94373d290295c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1014,7 +1014,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c07ab22c3150aef4aa98f7cef3b9d823, type: 2}
+  - {fileID: 2100000, guid: 16e78725a6cc284469e94373d290295c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1366,12 +1366,36 @@ MonoBehaviour:
     loop: 0
   - name: Theme
     clip: {fileID: 8300000, guid: 55a4435a7495da549b4855d6015c361a, type: 3}
-    volume: 0
+    volume: 0.615
     pitch: 1
     source: {fileID: 0}
     loop: 1
   - name: MenuHover
     clip: {fileID: 8300000, guid: 013f840c70850b74fa990c94af6efb8e, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: GameOver
+    clip: {fileID: 8300000, guid: 2df5be901d337f340b39d571c747f9e6, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: Win
+    clip: {fileID: 8300000, guid: 5fadbb16210f6fc478822c36df85eb5d, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: PlayerWinBall
+    clip: {fileID: 8300000, guid: bb87b485b6e2ef641a0f240171174899, type: 3}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - name: BotWinBall
+    clip: {fileID: 8300000, guid: 697db04acfe8a104e90f8b06b559192a, type: 3}
     volume: 1
     pitch: 1
     source: {fileID: 0}
@@ -1518,7 +1542,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c07ab22c3150aef4aa98f7cef3b9d823, type: 2}
+  - {fileID: 2100000, guid: 16e78725a6cc284469e94373d290295c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6463,7 +6487,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c07ab22c3150aef4aa98f7cef3b9d823, type: 2}
+  - {fileID: 2100000, guid: 16e78725a6cc284469e94373d290295c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16853,7 +16877,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c07ab22c3150aef4aa98f7cef3b9d823, type: 2}
+  - {fileID: 2100000, guid: 16e78725a6cc284469e94373d290295c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
