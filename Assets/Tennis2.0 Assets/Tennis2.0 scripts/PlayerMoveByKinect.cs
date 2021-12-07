@@ -87,6 +87,7 @@ public class PlayerMoveByKinect : MonoBehaviour
                 }
 
                 //movePlayer
+                //set 1 vi tri co dinh cho ban tay, neu ban tay di chuyen thi so sanh neu lech ben phai thi vi tri dich ve ben phai, nguoc lai thi sang trai
                 var deltaHeadPos = headPosAsVector - headPrevPos;
                 transform.Translate(new Vector3(deltaHeadPos.x, 0, -deltaHeadPos.z) * speed * Time.deltaTime);
 
@@ -97,12 +98,10 @@ public class PlayerMoveByKinect : MonoBehaviour
                 float z = filterDeltaZ.filter(currHandDelta.z);
                 currFilteredHandDelta = new Vector3(x,y,z);
 
-
                 headPrevPos = headPosAsVector;
                 rightPrevPos = rightPosAsVector;
             }
         }
-
     }
 
     private void OnTriggerEnter(Collider other)

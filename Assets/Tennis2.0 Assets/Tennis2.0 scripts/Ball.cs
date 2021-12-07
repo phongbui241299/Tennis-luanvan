@@ -14,6 +14,8 @@ public class Ball : MonoBehaviour
    [SerializeField] Text playerTextAlert;
    [SerializeField] Text botscoreT;
    [SerializeField] Text boTextAlert;
+   [SerializeField] Text playerTextLabel;
+   [SerializeField] Text boTextLabel;
    [SerializeField] Text gameOverT;
    [SerializeField] Text outText;
    [SerializeField] Text winT;
@@ -31,6 +33,8 @@ public class Ball : MonoBehaviour
         gameOverT.enabled = false;
         playerTextAlert.enabled = false;
         boTextAlert.enabled = false;
+        playerTextLabel.enabled = false;
+        boTextLabel.enabled = false;
         outText.enabled = false;
         winT.enabled = false;
         updateScores();
@@ -66,6 +70,8 @@ public class Ball : MonoBehaviour
             outText.enabled = true;
             playerTextAlert.enabled = true;
             boTextAlert.enabled = true;
+            playerTextLabel.enabled = true;
+            boTextLabel.enabled = true;
             cameraRotator.startRotate();
             StartCoroutine(StartTime());
             updateScores(); 
@@ -80,6 +86,8 @@ public class Ball : MonoBehaviour
         outText.enabled = false;
         playerTextAlert.enabled = false;
         boTextAlert.enabled = false;
+        playerTextLabel.enabled = false;
+        boTextLabel.enabled = false;
         cameraRotator.stopRotate();
       
     }
@@ -113,6 +121,8 @@ public class Ball : MonoBehaviour
             outText.enabled = true;
             playerTextAlert.enabled = true;
             boTextAlert.enabled = true;
+            playerTextLabel.enabled = true;
+            boTextLabel.enabled = true;
             cameraRotator.startRotate();
             StartCoroutine(StartTime());
             updateScores();
@@ -160,9 +170,9 @@ public class Ball : MonoBehaviour
     void updateScores()
     {
         playerscoreT.text = "Player: " + playerScore;
-        playerTextAlert.text = "Player: " + playerScore;
+        playerTextAlert.text = "" + playerScore;
         botscoreT.text = "Bot: " + botScore;
-        boTextAlert.text = "Bot: " + botScore;
+        boTextAlert.text = "" + botScore;
 
         if(botScore > scoreToWin ) //finish game
         {
@@ -207,11 +217,19 @@ public class Ball : MonoBehaviour
     {
         FindObjectOfType<AudioManager>().Play("BotWinBall");
     }
+   
     private void resetBall()
     {
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         transform.position = initialPos;
         hitter = "";
+    }
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        // Code to execute after the delay
+        resetBall();
     }
 }
