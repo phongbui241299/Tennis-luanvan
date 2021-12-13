@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using System.Collections;
 public class MainMenu : MonoBehaviour
 {
 
@@ -19,9 +19,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         GetComponent<MainMenu>().enabled = false;
-        //SceneManager.LoadScene.GetComponentInParent<MainMenu>.enabled = false;
         SceneManager.LoadScene(1);
-
     }
     
 }

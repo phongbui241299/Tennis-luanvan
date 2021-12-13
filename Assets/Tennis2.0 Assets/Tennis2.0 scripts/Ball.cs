@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine;
+using UnityEngine.SceneManagement;
 public class Ball : MonoBehaviour
 {
     public string hitter;
@@ -23,6 +24,7 @@ public class Ball : MonoBehaviour
     int scoreToWin = 40;
     public float time = 3;
     public GameObject ball;
+    public GameObject rePlay;
    
 
     void Start()
@@ -31,27 +33,38 @@ public class Ball : MonoBehaviour
         playerScore = 0;
         botScore = 0;
         gameOverT.enabled = false;
+        //  playerscoreT.enabled = false;
+        // botscoreT.enabled = false;
         playerTextAlert.enabled = false;
         boTextAlert.enabled = false;
         playerTextLabel.enabled = false;
         boTextLabel.enabled = false;
         outText.enabled = false;
         winT.enabled = false;
+        rePlay.SetActive(false);
         updateScores();
         
     }
+    public void RePlay()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
+    }
     void OnCollisionEnter(Collision collision)
     {
         if(collision.transform.CompareTag("Wall"))
         {
-            
-            
-
             if (hitter == "player")
             {
                 botScore+=15;
+                playerTextAlert.enabled = true;
+                boTextAlert.enabled = true;
+                playerTextLabel.enabled = true;
+                boTextLabel.enabled = true;
+                cameraRotator.startRotate();
                 playBotSound();
+                StartCoroutine(FreeTime());
+
                 if (botScore == 45)
                 {
                     botScore = 40;
@@ -60,7 +73,14 @@ public class Ball : MonoBehaviour
             else if (hitter == "bot")
             {
                 playerScore+=15;
+                playerTextAlert.enabled = true;
+                boTextAlert.enabled = true;
+                playerTextLabel.enabled = true;
+                boTextLabel.enabled = true;
+                cameraRotator.startRotate();
                 playPlayerSound();
+                StartCoroutine(FreeTime());
+
                 if (playerScore == 45)
                 {
                     playerScore = 40;
@@ -91,7 +111,16 @@ public class Ball : MonoBehaviour
         cameraRotator.stopRotate();
       
     }
+    IEnumerator FreeTime()
+    {
+        yield return new WaitForSeconds(time);
+        playerTextAlert.enabled = false;
+        boTextAlert.enabled = false;
+        playerTextLabel.enabled = false;
+        boTextLabel.enabled = false;
+        cameraRotator.stopRotate();
 
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Out"))
@@ -102,7 +131,14 @@ public class Ball : MonoBehaviour
             if (hitter == "player")
             {
                 botScore+=15;
+                playerTextAlert.enabled = true;
+                boTextAlert.enabled = true;
+                playerTextLabel.enabled = true;
+                boTextLabel.enabled = true;
+                cameraRotator.startRotate();
                 playBotSound();
+                StartCoroutine(FreeTime());
+
                 if (botScore==45)
                 {
                     botScore = 40;
@@ -111,7 +147,14 @@ public class Ball : MonoBehaviour
             else if(hitter == "bot")
             {
                 playerScore+=15;
+                playerTextAlert.enabled = true;
+                boTextAlert.enabled = true;
+                playerTextLabel.enabled = true;
+                boTextLabel.enabled = true;
+                cameraRotator.startRotate();
                 playPlayerSound();
+                StartCoroutine(FreeTime());
+
                 if (playerScore == 45)
                 {
                     playerScore = 40;
@@ -133,7 +176,14 @@ public class Ball : MonoBehaviour
             if(hitter == "player")
             {
                 botScore+=15;
+                playerTextAlert.enabled = true;
+                boTextAlert.enabled = true;
+                playerTextLabel.enabled = true;
+                boTextLabel.enabled = true;
+                cameraRotator.startRotate();
                 playBotSound();
+                StartCoroutine(FreeTime());
+
                 if (botScore == 45)
                 {
                     botScore = 40;
@@ -150,7 +200,14 @@ public class Ball : MonoBehaviour
             if(hitter == "bot")
             {
                 playerScore+=15;
+                playerTextAlert.enabled = true;
+                boTextAlert.enabled = true;
+                playerTextLabel.enabled = true;
+                boTextLabel.enabled = true;
+                cameraRotator.startRotate();
                 playPlayerSound();
+                StartCoroutine(FreeTime());
+
                 if (playerScore == 45)
                 {
                     playerScore = 40;
@@ -178,20 +235,30 @@ public class Ball : MonoBehaviour
         {
             cameraRotator.startRotate();
             gameOverT.enabled = true;
+            playerTextAlert.enabled = false;
+            boTextAlert.enabled = false;
+            playerTextLabel.enabled = false;
+            boTextLabel.enabled = false;
             gameObject.SetActive(false);
             playerscoreT.gameObject.SetActive(false);
             botscoreT.gameObject.SetActive(false);
             outText.enabled = false;
+            rePlay.SetActive(true);
             playEndSound();
         }
         else if(playerScore > scoreToWin)
         {
             cameraRotator.startRotate();
             winT.enabled = true;
+            playerTextAlert.enabled = false;
+            boTextAlert.enabled = false;
+            playerTextLabel.enabled = false;
+            boTextLabel.enabled = false;
             gameObject.SetActive(false);
             playerscoreT.gameObject.SetActive(false);
             botscoreT.gameObject.SetActive(false);
             outText.enabled = false;
+            rePlay.SetActive(true);
             playWinSound();
         }
         else if (playerScore == scoreToWin && botScore == scoreToWin)
@@ -231,5 +298,10 @@ public class Ball : MonoBehaviour
 
         // Code to execute after the delay
         resetBall();
+    }
+    public void showScore()
+    {
+        playerscoreT.enabled = false;
+        botscoreT.enabled = false;
     }
 }
