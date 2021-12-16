@@ -21,5 +21,4 @@ public class MainMenu : MonoBehaviour
         GetComponent<MainMenu>().enabled = false;
         SceneManager.LoadScene(1);
     }
-    
 }

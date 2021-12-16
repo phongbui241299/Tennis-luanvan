@@ -20,11 +20,15 @@ public class Ball : MonoBehaviour
    [SerializeField] Text gameOverT;
    [SerializeField] Text outText;
    [SerializeField] Text winT;
+   [SerializeField] Text exText;
+   [SerializeField] Text faultText;
 
     int scoreToWin = 40;
+    int scoreAd;
     public float time = 3;
     public GameObject ball;
     public GameObject rePlay;
+    public GameObject Player;
    
 
     void Start()
@@ -38,8 +42,10 @@ public class Ball : MonoBehaviour
         playerTextAlert.enabled = false;
         boTextAlert.enabled = false;
         playerTextLabel.enabled = false;
+        exText.enabled = false;
         boTextLabel.enabled = false;
         outText.enabled = false;
+        faultText.enabled = false;
         winT.enabled = false;
         rePlay.SetActive(false);
         updateScores();
@@ -48,7 +54,6 @@ public class Ball : MonoBehaviour
     public void RePlay()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -57,6 +62,8 @@ public class Ball : MonoBehaviour
             if (hitter == "player")
             {
                 botScore+=15;
+                ball.GetComponent<MeshRenderer>().enabled = false;
+
                 playerTextAlert.enabled = true;
                 boTextAlert.enabled = true;
                 playerTextLabel.enabled = true;
@@ -73,6 +80,8 @@ public class Ball : MonoBehaviour
             else if (hitter == "bot")
             {
                 playerScore+=15;
+                ball.GetComponent<MeshRenderer>().enabled = false;
+
                 playerTextAlert.enabled = true;
                 boTextAlert.enabled = true;
                 playerTextLabel.enabled = true;
@@ -87,38 +96,48 @@ public class Ball : MonoBehaviour
                 }
 
             }
-            outText.enabled = true;
+            //outText.enabled = true;
             playerTextAlert.enabled = true;
             boTextAlert.enabled = true;
             playerTextLabel.enabled = true;
             boTextLabel.enabled = true;
             cameraRotator.startRotate();
             StartCoroutine(StartTime());
-            updateScores(); 
+            updateScores();
             resetBall();
-            
+
         }
     }
 
     IEnumerator StartTime()
     {
         yield return new WaitForSeconds(time);
+        ball.GetComponent<MeshRenderer>().enabled = true;
+
         outText.enabled = false;
         playerTextAlert.enabled = false;
         boTextAlert.enabled = false;
         playerTextLabel.enabled = false;
         boTextLabel.enabled = false;
         cameraRotator.stopRotate();
-      
+       // ball.GetComponent<MeshRenderer>().enabled = true;
+
+
     }
     IEnumerator FreeTime()
     {
         yield return new WaitForSeconds(time);
+        ball.GetComponent<MeshRenderer>().enabled = true;
+
         playerTextAlert.enabled = false;
         boTextAlert.enabled = false;
         playerTextLabel.enabled = false;
         boTextLabel.enabled = false;
+        exText.enabled = false;
+        faultText.enabled = false;
         cameraRotator.stopRotate();
+       // ball.GetComponent<MeshRenderer>().enabled = true;
+
 
     }
     private void OnTriggerEnter(Collider other)
@@ -131,6 +150,9 @@ public class Ball : MonoBehaviour
             if (hitter == "player")
             {
                 botScore+=15;
+                ball.GetComponent<MeshRenderer>().enabled = false;
+
+                outText.enabled = true;
                 playerTextAlert.enabled = true;
                 boTextAlert.enabled = true;
                 playerTextLabel.enabled = true;
@@ -146,7 +168,9 @@ public class Ball : MonoBehaviour
             }
             else if(hitter == "bot")
             {
-                playerScore+=15;
+                playerScore+=15; ball.GetComponent<MeshRenderer>().enabled = false;
+
+                exText.enabled = true;
                 playerTextAlert.enabled = true;
                 boTextAlert.enabled = true;
                 playerTextLabel.enabled = true;
@@ -161,7 +185,7 @@ public class Ball : MonoBehaviour
                 }
 
             }
-            outText.enabled = true;
+            //outText.enabled = true;
             playerTextAlert.enabled = true;
             boTextAlert.enabled = true;
             playerTextLabel.enabled = true;
@@ -176,6 +200,9 @@ public class Ball : MonoBehaviour
             if(hitter == "player")
             {
                 botScore+=15;
+                ball.GetComponent<MeshRenderer>().enabled = false;
+
+                faultText.enabled = true;
                 playerTextAlert.enabled = true;
                 boTextAlert.enabled = true;
                 playerTextLabel.enabled = true;
@@ -190,7 +217,7 @@ public class Ball : MonoBehaviour
                 }
                 outText.enabled = false;
                 updateScores();
-                resetBall();
+               resetBall();
             }
             
             hitter = "player";
@@ -199,7 +226,8 @@ public class Ball : MonoBehaviour
         {
             if(hitter == "bot")
             {
-                playerScore+=15;
+                playerScore+=15; ball.GetComponent<MeshRenderer>().enabled = false;
+
                 playerTextAlert.enabled = true;
                 boTextAlert.enabled = true;
                 playerTextLabel.enabled = true;
@@ -212,10 +240,9 @@ public class Ball : MonoBehaviour
                 {
                     playerScore = 40;
                 }
-                outText.enabled = false;
              
                 updateScores();
-                resetBall();
+               resetBall();
             }
 
             hitter = "bot";
@@ -243,6 +270,8 @@ public class Ball : MonoBehaviour
             playerscoreT.gameObject.SetActive(false);
             botscoreT.gameObject.SetActive(false);
             outText.enabled = false;
+            exText.enabled = false;
+            faultText.enabled = false;
             rePlay.SetActive(true);
             playEndSound();
         }
@@ -258,14 +287,16 @@ public class Ball : MonoBehaviour
             playerscoreT.gameObject.SetActive(false);
             botscoreT.gameObject.SetActive(false);
             outText.enabled = false;
+            exText.enabled = false;
+            faultText.enabled = false;
             rePlay.SetActive(true);
             playWinSound();
         }
         else if (playerScore == scoreToWin && botScore == scoreToWin)
         {
-            gameOverT.enabled = false;
-            gameObject.SetActive(true);
-
+ 
+                gameOverT.enabled = false;
+                gameObject.SetActive(true);
         }
     }
     public void playEndSound()
@@ -287,6 +318,7 @@ public class Ball : MonoBehaviour
    
     private void resetBall()
     {
+        //Player.GetComponent<MeshRenderer>().enabled = true;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         transform.position = initialPos;
